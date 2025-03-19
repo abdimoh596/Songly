@@ -39,6 +39,8 @@ dependencies:
   provider: ^6.1.2
   cached_network_image: ^3.4.1
   flutter_swipe_action_cell: ^3.1.5
+  flutter_web_auth: ^0.6.0 # For handling OAuth authentication
+  url_launcher: ^6.0.20 # To open the Spotify login page
 
 dev_dependencies:
   flutter_test:
