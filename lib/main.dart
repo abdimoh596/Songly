@@ -1,50 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Load environment variables
+import 'screens/login_screen.dart'; // Import login screen
+import 'screens/welcome_screen.dart'; // Import welcome screen
 
-Future<void> main() async {
-  // Load environment variables
-  await dotenv.load(fileName: ".env");
-
-  runApp(const MyApp());
+void main() async {
+  await dotenv.load(); // Load .env file (for your credentials)
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key}); // Constructor
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Songly',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LoginScreen(),
-    );
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // Retrieve Spotify Client ID from .env
-    String? clientId = dotenv.env['SPOTIFY_CLIENT_ID'];
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('Login to Spotify')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Your Spotify Client ID:'),
-            Text(
-              clientId ?? 'No Client ID found',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      initialRoute: '/', // Set the first screen to load
+      routes: {
+        '/': (context) => WelcomeScreen(), // Welcome screen route
+        '/login': (context) => LoginScreen(),  // Login screen route
+      },
     );
   }
 }
